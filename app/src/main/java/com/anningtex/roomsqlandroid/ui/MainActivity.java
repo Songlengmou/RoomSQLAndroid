@@ -14,6 +14,7 @@ import com.anningtex.roomsqlandroid.bean.PhoneBean;
 import com.anningtex.roomsqlandroid.db.PhoneDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void queryPhone() {
         List<PhoneBean> mPhoneLists = PhoneDatabase.getDefault(getApplicationContext()).getPhoneDao().getPhoneAll();
+        //倒序
+        Collections.reverse(mPhoneLists);
         PhoneListAdapter mAdapter = new PhoneListAdapter(mPhoneLists);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(phoneBean -> {
