@@ -26,6 +26,20 @@ public class PhoneBean implements Parcelable {
     @ColumnInfo(name = "DATE")
     private Date date;
 
+    /**
+     * 新增,只为了测试升级版本
+     */
+    @ColumnInfo(name = "TEST_ID")
+    private int testId;
+
+    @ColumnInfo(name = "TEST_NAME")
+    private String testName;
+
+    @ColumnInfo(name = "TEST_PHONE")
+    private String testPhone;
+
+    private boolean testCs;
+
     public PhoneBean(String phone, String name, Date date) {
         this.phone = phone;
         this.name = name;
@@ -62,6 +76,38 @@ public class PhoneBean implements Parcelable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public int getTestId() {
+        return testId;
+    }
+
+    public void setTestId(int testId) {
+        this.testId = testId;
+    }
+
+    public String getTestName() {
+        return testName;
+    }
+
+    public void setTestName(String testName) {
+        this.testName = testName;
+    }
+
+    public String getTestPhone() {
+        return testPhone;
+    }
+
+    public void setTestPhone(String testPhone) {
+        this.testPhone = testPhone;
+    }
+
+    public boolean isTestCs() {
+        return testCs;
+    }
+
+    public void setTestCs(boolean testCs) {
+        this.testCs = testCs;
     }
 
     @Override
