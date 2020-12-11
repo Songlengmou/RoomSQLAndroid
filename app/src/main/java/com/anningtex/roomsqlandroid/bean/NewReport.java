@@ -15,6 +15,18 @@ public class NewReport {
     private String orderNo;
     private String name;
     private int age;
+    /**
+     * 新增
+     */
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getOrderNo() {
         return orderNo;
