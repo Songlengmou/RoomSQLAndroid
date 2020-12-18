@@ -13,10 +13,14 @@ import com.anningtex.roomsqlandroid.bean.PhoneBean;
 import com.anningtex.roomsqlandroid.bean.TwoReport;
 import com.anningtex.roomsqlandroid.dao.PhoneDao;
 
+import java.sql.DatabaseMetaData;
+import java.sql.SQLClientInfoException;
+import java.util.concurrent.ForkJoinPool;
+
 /**
  * @author Administrator
  */
-@Database(entities = {PhoneBean.class, NewReport.class, TwoReport.class}, version = 6, exportSchema = false)
+@Database(entities = {PhoneBean.class, NewReport.class, TwoReport.class}, version = 7, exportSchema = false)
 @TypeConverters({ConversionFactory.class})
 public abstract class PhoneDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "PHONE.db";
@@ -28,7 +32,7 @@ public abstract class PhoneDatabase extends RoomDatabase {
     private static PhoneDatabase buildDatabase(Context context) {
         return Room.databaseBuilder(context.getApplicationContext(), PhoneDatabase.class, DATABASE_NAME)
                 .allowMainThreadQueries()
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
                 .build();
     }
 
@@ -76,7 +80,7 @@ public abstract class PhoneDatabase extends RoomDatabase {
         public void migrate(SupportSQLiteDatabase database) {
             //创建新表TwoReport
             database.execSQL("CREATE TABLE IF NOT EXISTS TwoReport " +
-                    "(color TEXT PRIMARY KEY NOT NULL,brandName TEXT NOT NULL,olid INTEGER NOT NULL DEFAULT 0," +
+                    "(color TEXT PRIMARY KEY NOT NULL, brandName TEXT NOT NULL, olid INTEGER NOT NULL DEFAULT 0," +
                     "ciid INTEGER NOT NULL DEFAULT 0)");
         }
     };
@@ -91,6 +95,29 @@ public abstract class PhoneDatabase extends RoomDatabase {
             //在TwoReport新增一个键值
             database.execSQL("ALTER TABLE TwoReport "
                     + " ADD COLUMN bhiiid INTEGER NOT NULL DEFAULT 0");
+        }
+    };
+
+    /**
+     * 创建新表，删除原表，改名原表
+     */
+    static final Migration MIGRATION_6_7 = new Migration(6, 7) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            //1. 创建一个新表TwoReportTemp，只设定想要的字段
+            database.execSQL("CREATE TABLE TwoReportTemp " +
+                    "(color TEXT PRIMARY KEY NOT NULL, brandName TEXT NOT NULL," +
+                    "ciid INTEGER NOT NULL DEFAULT 0)");
+            //2.将原来表中的数据复制过来
+            database.execSQL("INSERT INTO TwoReportTemp (color,brandName,ciid) " +
+                    "SELECT color, brandName, ciid FROM TwoReport"
+            );
+
+            //todo 这两句有error
+            //3.将原表TwoReport删除
+//            database.execSQL("DROP TABLE TwoReport");
+            //4.将新建的表改名
+//            database.execSQL("ALTER TABLE TwoReportTemp RENAME to TwoReport");
         }
     };
 }
