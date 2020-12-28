@@ -1,9 +1,10 @@
 package com.anningtex.roomsqlandroid.ui;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         findViewById(R.id.query_button).setOnClickListener(this);
         findViewById(R.id.insert_button).setOnClickListener(this);
+        findViewById(R.id.btn_launch).setOnClickListener(this);
     }
 
     @Override
@@ -58,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     insertPhone(mName, mPhone);
                 }
+                break;
+            case R.id.btn_launch:
+                startActivity(new Intent(MainActivity.this, OrderSpecActivity.class));
                 break;
             default:
                 break;

@@ -1,26 +1,26 @@
 package com.anningtex.roomsqlandroid.db;
 
-import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
-import android.arch.persistence.room.TypeConverters;
-import android.arch.persistence.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
+import androidx.room.migration.Migration;
+
 import android.content.Context;
 
 import com.anningtex.roomsqlandroid.bean.NewReport;
+import com.anningtex.roomsqlandroid.bean.OrderSpecEntity;
 import com.anningtex.roomsqlandroid.bean.PhoneBean;
 import com.anningtex.roomsqlandroid.bean.TwoReport;
+import com.anningtex.roomsqlandroid.dao.OrderSpecDao;
 import com.anningtex.roomsqlandroid.dao.PhoneDao;
-
-import java.sql.DatabaseMetaData;
-import java.sql.SQLClientInfoException;
-import java.util.concurrent.ForkJoinPool;
 
 /**
  * @author Administrator
  */
-@Database(entities = {PhoneBean.class, NewReport.class, TwoReport.class}, version = 7, exportSchema = false)
+@Database(entities = {PhoneBean.class, NewReport.class, TwoReport.class, OrderSpecEntity.class},
+        version = 8, exportSchema = false)
 @TypeConverters({ConversionFactory.class})
 public abstract class PhoneDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "PHONE.db";
@@ -31,6 +31,7 @@ public abstract class PhoneDatabase extends RoomDatabase {
 
     private static PhoneDatabase buildDatabase(Context context) {
         return Room.databaseBuilder(context.getApplicationContext(), PhoneDatabase.class, DATABASE_NAME)
+                .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
                 .build();
@@ -120,4 +121,9 @@ public abstract class PhoneDatabase extends RoomDatabase {
 //            database.execSQL("ALTER TABLE TwoReportTemp RENAME to TwoReport");
         }
     };
+
+    /**
+     * 不需要写上方的这些Migration，直接创建一个新表,升级数据库版本进行调用
+     */
+    public abstract OrderSpecDao getOrderSpecDao();
 }
