@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * @Author Song
  */
 @Entity
-public class TwoReport {
+public class TwoReportBean {
     @NotNull
     @PrimaryKey
     private String color;

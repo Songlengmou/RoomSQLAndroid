@@ -79,11 +79,20 @@
         android:text="提示：点击条目进行修改和删除操作"
         android:textSize="10sp" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/data_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
+        android:layout_weight="1"
         android:overScrollMode="never" />
+
+    <Button
+        android:id="@+id/btn_launch"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:text="跳转/新表"
+        android:textSize="10sp" />
 
 </LinearLayout>

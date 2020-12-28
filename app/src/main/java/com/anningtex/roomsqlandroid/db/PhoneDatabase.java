@@ -10,17 +10,17 @@ import androidx.room.migration.Migration;
 import android.content.Context;
 
 import com.anningtex.roomsqlandroid.bean.NewReport;
-import com.anningtex.roomsqlandroid.bean.OrderSpecEntity;
+import com.anningtex.roomsqlandroid.bean.OrderSpecBean;
 import com.anningtex.roomsqlandroid.bean.PhoneBean;
-import com.anningtex.roomsqlandroid.bean.TwoReport;
+import com.anningtex.roomsqlandroid.bean.TwoReportBean;
 import com.anningtex.roomsqlandroid.dao.OrderSpecDao;
 import com.anningtex.roomsqlandroid.dao.PhoneDao;
 
 /**
  * @author Administrator
  */
-@Database(entities = {PhoneBean.class, NewReport.class, TwoReport.class, OrderSpecEntity.class},
-        version = 8, exportSchema = false)
+@Database(entities = {PhoneBean.class, NewReport.class, TwoReportBean.class, OrderSpecBean.class},
+        version = 9, exportSchema = false)
 @TypeConverters({ConversionFactory.class})
 public abstract class PhoneDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "PHONE.db";

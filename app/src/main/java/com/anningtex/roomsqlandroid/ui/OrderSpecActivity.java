@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.anningtex.roomsqlandroid.R;
-import com.anningtex.roomsqlandroid.bean.OrderSpecEntity;
+import com.anningtex.roomsqlandroid.bean.OrderSpecBean;
 import com.anningtex.roomsqlandroid.dao.OrderSpecDao;
 import com.anningtex.roomsqlandroid.db.PhoneDatabase;
 import com.syp.library.BaseRecycleAdapter;
@@ -52,8 +52,8 @@ public class OrderSpecActivity extends AppCompatActivity implements View.OnClick
                 String order = mInsertOrderEdit.getText().toString().trim();
                 String metersPerBale = mInsertMetersPerBaleEdit.getText().toString().trim();
                 String unit = mInsertUnitEnEdit.getText().toString().trim();
-                OrderSpecEntity orderSpecEntity = new OrderSpecEntity(order, metersPerBale, unit);
-                orderSpecDao.insertOrderSpecEntity(orderSpecEntity);
+                OrderSpecBean orderSpecBean = new OrderSpecBean(order, metersPerBale, unit);
+                orderSpecDao.insertOrderSpecEntity(orderSpecBean);
                 queryAllData();
                 break;
             case R.id.query_button:
@@ -65,19 +65,19 @@ public class OrderSpecActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void queryAllData() {
-        List<OrderSpecEntity> orderSpecEntities = orderSpecDao.queryAll();
+        List<OrderSpecBean> orderSpecEntities = orderSpecDao.queryAll();
         if (orderSpecEntities != null && orderSpecEntities.size() > 0) {
             adapter = new BaseRecycleAdapter(R.layout.item_phone_text, orderSpecEntities);
             mRvItem.setAdapter(adapter);
             adapter.setOnDataToViewListener((helper, item, position) -> {
-                OrderSpecEntity orderSpecEntity = (OrderSpecEntity) item;
-                helper.setText(R.id.phone_number_text, orderSpecEntity.getOrder() + " \n " +
-                        orderSpecEntity.getMetersPerBale() + orderSpecEntity.getUnitEn());
+                OrderSpecBean orderSpecBean = (OrderSpecBean) item;
+                helper.setText(R.id.phone_number_text, orderSpecBean.getOrder() + " \n " +
+                        orderSpecBean.getMetersPerBale() + orderSpecBean.getUnitEn());
             });
             adapter.setOnItemLongClickListener((adapter, view, position) -> {
-                List<OrderSpecEntity> data = adapter.getData();
-                OrderSpecEntity orderSpecEntity = data.get(position);
-                orderSpecDao.deleteOrderSpecEntity(orderSpecEntity);
+                List<OrderSpecBean> data = adapter.getData();
+                OrderSpecBean orderSpecBean = data.get(position);
+                orderSpecDao.deleteOrderSpecEntity(orderSpecBean);
                 orderSpecEntities.remove(position);
                 adapter.notifyDataSetChanged();
                 return false;

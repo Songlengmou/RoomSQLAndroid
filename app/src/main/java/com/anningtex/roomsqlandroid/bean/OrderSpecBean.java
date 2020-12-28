@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
  * @author Administrator
  */
 @Entity(primaryKeys = {"order", "metersPerBale", "unitEn"})
-public class OrderSpecEntity {
+public class OrderSpecBean {
     @NonNull
     private String order;
     @NonNull
@@ -15,7 +15,7 @@ public class OrderSpecEntity {
     @NonNull
     private String unitEn;
 
-    public OrderSpecEntity(String order, String metersPerBale, String unitEn) {
+    public OrderSpecBean(String order, String metersPerBale, String unitEn) {
         this.order = order;
         this.metersPerBale = metersPerBale;
         this.unitEn = unitEn;

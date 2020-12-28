@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.anningtex.roomsqlandroid.bean.OrderSpecEntity;
+import com.anningtex.roomsqlandroid.bean.OrderSpecBean;
 
 import java.util.List;
 
@@ -16,11 +16,11 @@ import java.util.List;
 @Dao
 public interface OrderSpecDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertOrderSpecEntity(OrderSpecEntity orderSpecEntity);
+    void insertOrderSpecEntity(OrderSpecBean orderSpecBean);
 
-    @Query("SELECT * FROM OrderSpecEntity")
-    List<OrderSpecEntity> queryAll();
+    @Query("SELECT * FROM OrderSpecBean")
+    List<OrderSpecBean> queryAll();
 
     @Delete()
-    void deleteOrderSpecEntity(OrderSpecEntity orderSpecEntity);
+    void deleteOrderSpecEntity(OrderSpecBean orderSpecBean);
 }
