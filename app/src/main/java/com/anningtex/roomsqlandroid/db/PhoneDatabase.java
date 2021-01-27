@@ -33,7 +33,7 @@ public abstract class PhoneDatabase extends RoomDatabase {
         return Room.databaseBuilder(context.getApplicationContext(), PhoneDatabase.class, DATABASE_NAME)
 //                .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7,MIGRATION_9_10)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_9_10)
                 .build();
     }
 
@@ -127,6 +127,9 @@ public abstract class PhoneDatabase extends RoomDatabase {
      */
     public abstract OrderSpecDao getOrderSpecDao();
 
+    /**
+     * 删除某张表
+     */
     static final Migration MIGRATION_9_10 = new Migration(9, 10) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
