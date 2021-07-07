@@ -1,4 +1,4 @@
-package com.anningtex.roomsqlandroid.ui;
+package com.anningtex.roomsqlandroid.dialog;
 
 import android.os.Bundle;
 import android.view.View;

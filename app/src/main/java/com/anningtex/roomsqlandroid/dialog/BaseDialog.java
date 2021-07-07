@@ -1,4 +1,4 @@
-package com.anningtex.roomsqlandroid.ui;
+package com.anningtex.roomsqlandroid.dialog;
 
 import android.app.Activity;
 import android.app.DialogFragment;

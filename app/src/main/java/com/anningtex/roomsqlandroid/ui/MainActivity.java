@@ -24,6 +24,7 @@ import com.anningtex.roomsqlandroid.adapter.PhoneListAdapter;
 import com.anningtex.roomsqlandroid.adapter.PopPhoneAdapter;
 import com.anningtex.roomsqlandroid.bean.PhoneBean;
 import com.anningtex.roomsqlandroid.db.PhoneDatabase;
+import com.anningtex.roomsqlandroid.dialog.EditDialog;
 import com.anningtex.roomsqlandroid.pop.PopupWindowUtils;
 
 import java.util.ArrayList;
@@ -142,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         PhoneDatabase.getDefault(getApplicationContext()).getPhoneDao().insertAll(mPhones);
         mNameEdit.setText("");
         mPhoneEdit.setText("");
+        queryPhone();
     }
 
     private void queryPhone() {
